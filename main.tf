@@ -4,6 +4,8 @@ resource "azurerm_container_registry" "this" {
   location            = var.location
   sku                 = var.sku
 
+  public_network_access_enabled = false
+  
   identity {
     type         = "SystemAssigned, UserAssigned"
     identity_ids = concat(var.identity_ids, [var.encryption_identity_name ? data.azurerm_user_assigned_identity.this[0].id : azurerm_user_assigned_identity.this[0].id])
