@@ -31,9 +31,17 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_example_of_required_variable"></a> [example\_of\_required\_variable](#input\_example\_of\_required\_variable) | Short description of the variable | `string` | n/a | yes |
-| <a name="input_example_with_validation"></a> [example\_with\_validation](#input\_example\_with\_validation) | Short description of the variable | `list(string)` | n/a | yes |
-| <a name="input_example_of_variable_with_default_value"></a> [example\_of\_variable\_with\_default\_value](#input\_example\_of\_variable\_with\_default\_value) | Short description of the variable | `string` | `"default_value"` | no |
+| <a name="input_location"></a> [location](#input\_location) | Specifies the supported Azure location where the resource exists. Changing this forces a new resource to be created. | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | ACR Name | `string` | n/a | yes |
+| <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name of the resource group in which to create the Container Registry. Changing this forces a new resource to be created. | `string` | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the resource. | `map(string)` | n/a | yes |
+| <a name="input_admin_enabled"></a> [admin\_enabled](#input\_admin\_enabled) | Specifies whether the admin user is enabled. Defaults to false. | `string` | `false` | no |
+| <a name="input_encryption_identity_name"></a> [encryption\_identity\_name](#input\_encryption\_identity\_name) | The name of the identity to assign to the container registry. | `string` | `null` | no |
+| <a name="input_encryption_identity_resource_group_name"></a> [encryption\_identity\_resource\_group\_name](#input\_encryption\_identity\_resource\_group\_name) | The resource group of the identity to assign to the container registry. | `string` | `null` | no |
+| <a name="input_georeplications"></a> [georeplications](#input\_georeplications) | n/a | <pre>object({<br>    location                  = string<br>    regional_endpoint_enabled = optional(bool)<br>    zone_redundancy_enabled   = optional(bool)<br>    tags                      = optional(map(string))<br>  })</pre> | `null` | no |
+| <a name="input_identity_ids"></a> [identity\_ids](#input\_identity\_ids) | The list of identities to assign to the container registry. | `list(string)` | `null` | no |
+| <a name="input_key_vault_key_id"></a> [key\_vault\_key\_id](#input\_key\_vault\_key\_id) | The key vault key identifier for the storage account. | `string` | `null` | no |
+| <a name="input_sku"></a> [sku](#input\_sku) | The SKU name of the container registry. Possible values are Basic, Standard and Premium. | `string` | `"Premium"` | no |
 
 ## Outputs
 
