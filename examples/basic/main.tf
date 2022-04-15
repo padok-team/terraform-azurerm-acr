@@ -13,6 +13,13 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "example" {
-  name     = "example-resources"
-  location = "West Europe"
+  name     = "example"
+  location = "francecentral"
+}
+
+module "acr" {
+  source = "../.."
+  name = "example"
+  resource_group_name = azurerm_resource_group.example.name
+  location = "francecentral"
 }
