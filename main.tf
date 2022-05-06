@@ -1,27 +1,29 @@
+data "azurerm_client_config" "self" {}
+
 resource "azurerm_container_registry" "this" {
-  name                = var.name
-  resource_group_name = var.resource_group_name
-  location            = var.location
+  name                    = var.name
+  resource_group_name     = var.resource_group_name
+  location                = var.location
   zone_redundancy_enabled = true
-  sku                 = var.sku
+  sku                     = var.sku
 
   public_network_access_enabled = false
 
   retention_policy {
     enabled = true
-    days = var.retention_duration
+    days    = var.retention_duration
   }
 
   dynamic "network_rule_set" {
     for_each = var.subnet_ids
     content {
       virtual_network {
-        action = "Allow"
+        action    = "Allow"
         subnet_id = each.key
       }
     }
   }
-  
+
   identity {
     type         = "SystemAssigned, UserAssigned"
     identity_ids = concat(var.identity_ids, [var.encryption_identity_name != null ? data.azurerm_user_assigned_identity.this[0].id : azurerm_user_assigned_identity.this[0].id])
@@ -40,7 +42,7 @@ resource "azurerm_container_registry" "this" {
   # Encryption should be enabled by default.
   encryption {
     enabled            = true
-    key_vault_key_id   = var.key_vault_key_id
+    key_vault_key_id   = var.encryption_key_vault_key_id
     identity_client_id = var.encryption_identity_name != null ? data.azurerm_user_assigned_identity.this[0].client_id : azurerm_user_assigned_identity.this[0].client_id
   }
 }
@@ -48,7 +50,7 @@ resource "azurerm_container_registry" "this" {
 data "azurerm_user_assigned_identity" "this" {
   count               = var.encryption_identity_name != null ? 1 : 0
   name                = var.encryption_identity_name
-  resource_group_name = var.encryption_identity_resource_group_name ? var.encryption_identity_resource_group_name : var.resource_group_name
+  resource_group_name = coalesce(var.encryption_identity_resource_group_name, var.resource_group_name)
 }
 
 resource "azurerm_user_assigned_identity" "this" {
@@ -57,4 +59,16 @@ resource "azurerm_user_assigned_identity" "this" {
   resource_group_name = var.resource_group_name
   location            = var.location
   name                = "acr-${var.name}-identity"
+}
+
+resource "azurerm_key_vault_access_policy" "this" {
+  count = var.encryption_identity_name != null ? 0 : 1
+
+  key_vault_id = var.encryption_key_vault_id
+  tenant_id    = coalesce(var.encryption_tenant_id, data.azurerm_client_config.self.tenant_id)
+  object_id    = azurerm_user_assigned_identity.this[0].principal_id
+
+  key_permissions = [
+    "Get",
+  ]
 }
