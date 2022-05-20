@@ -14,7 +14,7 @@ provider "azurerm" {
 }
 
 locals {
-  ip = "83.202.130.167" # Fill here with your IP address.
+  ip = "" # Fill here with your IP address.
 }
 
 data "azurerm_client_config" "self" {}
