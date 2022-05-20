@@ -23,7 +23,7 @@ resource "azurerm_container_registry" "this" {
 
     virtual_network = [
       for subnet_id in var.virtual_network : {
-        action   = "Allow"
+        action    = "Allow"
         subnet_id = subnet_id
       }
     ]

@@ -31,7 +31,7 @@ variable "virtual_network" {
   default     = []
 }
 
-variable "ip_addresses" { # TODO RENAME IT
+variable "ip_addresses" {
   type        = list(string)
   description = "The CIDR block from which requests will match the rule."
   default     = []
