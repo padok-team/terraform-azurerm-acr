@@ -7,21 +7,33 @@ resource "azurerm_container_registry" "this" {
   zone_redundancy_enabled = true
   sku                     = var.sku
 
-  public_network_access_enabled = false
+  public_network_access_enabled = var.public_network_access_enabled
+
+  admin_enabled = var.admin_enabled
 
   retention_policy {
     enabled = true
     days    = var.retention_duration
   }
 
-  dynamic "network_rule_set" {
-    for_each = var.subnet_ids
-    content {
-      virtual_network {
-        action    = "Allow"
-        subnet_id = each.key
+  # On this field, the provider source code differs from standard dynamic blocks.
+  # More information here: https://discuss.hashicorp.com/t/using-dynamic-inside-blocks-in-a-resource/8542/3
+  network_rule_set {
+    default_action = var.network_default_action
+
+    virtual_network = [
+      for subnet_id in var.virtual_network : {
+        action   = "Allow"
+        subnet_id = subnet_id
       }
-    }
+    ]
+
+    ip_rule = [
+      for ip_range in var.ip_addresses : {
+        action   = "Allow"
+        ip_range = ip_range
+      }
+    ]
   }
 
   identity {
@@ -69,6 +81,6 @@ resource "azurerm_key_vault_access_policy" "this" {
   object_id    = azurerm_user_assigned_identity.this[0].principal_id
 
   key_permissions = [
-    "Get",
+    "Get", "WrapKey", "UnwrapKey"
   ]
 }

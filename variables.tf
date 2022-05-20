@@ -13,9 +13,27 @@ variable "location" {
   description = "Specifies the supported Azure location where the resource exists. Changing this forces a new resource to be created."
 }
 
-variable "subnet_ids" {
-  type        = list(any)
+variable "public_network_access_enabled" {
+  type        = bool
+  description = "Whether public network access is allowed for the container registry. Defaults to false."
+  default     = false
+}
+
+variable "network_default_action" {
+  type        = string
+  description = "The behaviour for requests matching no rules. Either Allow or Deny. Defaults to Deny."
+  default     = "Deny"
+}
+
+variable "virtual_network" {
+  type        = list(string)
   description = "The list of subnet ids to associate with the container registry."
+  default     = []
+}
+
+variable "ip_addresses" { # TODO RENAME IT
+  type        = list(string)
+  description = "The CIDR block from which requests will match the rule."
   default     = []
 }
 
@@ -26,7 +44,7 @@ variable "sku" {
 }
 
 variable "admin_enabled" {
-  type        = string
+  type        = bool
   description = "Specifies whether the admin user is enabled. Defaults to false."
   default     = false
 }
@@ -85,4 +103,4 @@ variable "retention_duration" {
   default     = "90"
   description = "The number of days to retain the logs. Defaults to 30."
 }
-  
+

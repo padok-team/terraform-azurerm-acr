@@ -9,7 +9,12 @@ terraform {
 }
 
 provider "azurerm" {
+  skip_provider_registration = true
   features {}
+}
+
+locals {
+  ip = "83.202.130.167" # Fill here with your IP address.
 }
 
 data "azurerm_client_config" "self" {}
@@ -31,17 +36,20 @@ module "keyvault" {
   sku_name            = "standard"
 
   access_policy = {
-    (data.azurerm_client_config.self.client_id) = {
-      key_permissions = ["Get", "List", "Set"]
+    (data.azurerm_client_config.self.object_id) = {
+      key_permissions = ["Get", "List", "Create", "Delete"]
     }
+  }
+
+  network_acls = {
+    ip_rules                   = [local.ip]
+    virtual_network_subnet_ids = []
   }
 
   depends_on = [
     azurerm_resource_group.example
   ]
 }
-
-
 
 resource "azurerm_key_vault_key" "example" {
   name         = "acr-key"
@@ -68,6 +76,9 @@ module "acr" {
   name                = random_pet.acr.id
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
+
+  admin_enabled                 = true
+  public_network_access_enabled = true
 
   encryption_key_vault_id     = module.keyvault.id
   encryption_key_vault_key_id = azurerm_key_vault_key.example.id
