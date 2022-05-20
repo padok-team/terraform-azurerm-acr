@@ -1,26 +1,45 @@
-# CLOUD_PROVIDER TYPE Terraform module
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-Terraform module which creates **TYPE** resources on **CLOUD_PROVIDER**. This module is an abstraction of the [MODULE_NAME](https://github.com/a_great_module) by [@someoneverysmart](https://github.com/someoneverysmart).
+- [Azure Container Registry Terraform module](#azure-container-registry-terraform-module)
+  - [User Stories for this module](#user-stories-for-this-module)
+  - [Usage](#usage)
+  - [Examples](#examples)
+  - [Modules](#modules)
+  - [Inputs](#inputs)
+  - [Outputs](#outputs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+# Azure Container Registry Terraform module
+
+Terraform module which creates **Container Registry** resources on **Azure**. This module provides some useful recommandations about encryption and redondancy.
 
 ## User Stories for this module
 
-- AATYPE I can be highly available or single zone
-- ...
+- AAOps I can store my images into a secure registry.
+- AAOps I still can access my images after a disaster.
 
 ## Usage
 
 ```hcl
-module "example" {
-  source = "https://github.com/padok-team/terraform-aws-example"
+module "acr" {
+  source = "https://github.com/padok-team/terraform-azurerm-acr?ref=v0.0.1"
 
-  example_of_required_variable = "hello_world"
+  name                = "test-acr"
+  resource_group_name = "test-acr"
+  location            = "francecentral"
+
+  # Encryption at rest
+  encryption_key_vault_id     = "my-keyvault"
+  encryption_key_vault_key_id = "my-key"
 }
 ```
 
 ## Examples
 
-- [Example of use case](examples/example_of_use_case/main.tf)
-- [Example of other use case](examples/example_of_other_use_case/main.tf)
+- [Simple example of use case](examples/basic/main.tf)
 
 <!-- BEGIN_TF_DOCS -->
 ## Modules
@@ -31,13 +50,28 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_example_of_required_variable"></a> [example\_of\_required\_variable](#input\_example\_of\_required\_variable) | Short description of the variable | `string` | n/a | yes |
-| <a name="input_example_with_validation"></a> [example\_with\_validation](#input\_example\_with\_validation) | Short description of the variable | `list(string)` | n/a | yes |
-| <a name="input_example_of_variable_with_default_value"></a> [example\_of\_variable\_with\_default\_value](#input\_example\_of\_variable\_with\_default\_value) | Short description of the variable | `string` | `"default_value"` | no |
+| <a name="input_encryption_key_vault_id"></a> [encryption\_key\_vault\_id](#input\_encryption\_key\_vault\_id) | The key vault id of the key used to encrypt container registry. | `string` | n/a | yes |
+| <a name="input_encryption_key_vault_key_id"></a> [encryption\_key\_vault\_key\_id](#input\_encryption\_key\_vault\_key\_id) | The key vault key identifier for the storage account. | `string` | n/a | yes |
+| <a name="input_location"></a> [location](#input\_location) | Specifies the supported Azure location where the resource exists. Changing this forces a new resource to be created. | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | ACR Name | `string` | n/a | yes |
+| <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name of the resource group in which to create the Container Registry. Changing this forces a new resource to be created. | `string` | n/a | yes |
+| <a name="input_admin_enabled"></a> [admin\_enabled](#input\_admin\_enabled) | Specifies whether the admin user is enabled. Defaults to false. | `bool` | `false` | no |
+| <a name="input_encryption_identity_name"></a> [encryption\_identity\_name](#input\_encryption\_identity\_name) | The name of the identity to assign to the container registry. | `string` | `null` | no |
+| <a name="input_encryption_identity_resource_group_name"></a> [encryption\_identity\_resource\_group\_name](#input\_encryption\_identity\_resource\_group\_name) | The resource group of the identity to assign to the container registry. | `string` | `null` | no |
+| <a name="input_encryption_tenant_id"></a> [encryption\_tenant\_id](#input\_encryption\_tenant\_id) | The tenant id of the identity used to access KeyVault. | `string` | `null` | no |
+| <a name="input_georeplications"></a> [georeplications](#input\_georeplications) | n/a | <pre>map(object({<br>    regional_endpoint_enabled = optional(bool)<br>    zone_redundancy_enabled   = optional(bool)<br>    tags                      = optional(map(string))<br>  }))</pre> | `{}` | no |
+| <a name="input_identity_ids"></a> [identity\_ids](#input\_identity\_ids) | The list of identities to assign to the container registry. | `list(string)` | `[]` | no |
+| <a name="input_ip_addresses"></a> [ip\_addresses](#input\_ip\_addresses) | The CIDR block from which requests will match the rule. | `list(string)` | `[]` | no |
+| <a name="input_network_default_action"></a> [network\_default\_action](#input\_network\_default\_action) | The behaviour for requests matching no rules. Either Allow or Deny. Defaults to Deny. | `string` | `"Deny"` | no |
+| <a name="input_public_network_access_enabled"></a> [public\_network\_access\_enabled](#input\_public\_network\_access\_enabled) | Whether public network access is allowed for the container registry. Defaults to false. | `bool` | `false` | no |
+| <a name="input_retention_duration"></a> [retention\_duration](#input\_retention\_duration) | The number of days to retain the logs. Defaults to 30. | `string` | `"90"` | no |
+| <a name="input_sku"></a> [sku](#input\_sku) | The SKU name of the container registry. Possible values are Basic, Standard and Premium. | `string` | `"Premium"` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the resource. | `map(string)` | `{}` | no |
+| <a name="input_virtual_network"></a> [virtual\_network](#input\_virtual\_network) | The list of subnet ids to associate with the container registry. | `list(string)` | `[]` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_example"></a> [example](#output\_example) | A meaningful description |
+| <a name="output_acr"></a> [acr](#output\_acr) | The Azure container registry created. |
 <!-- END_TF_DOCS -->

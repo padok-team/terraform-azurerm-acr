@@ -1,4 +1,4 @@
-output "example" {
-  value       = "ressource_type.name.atttibute"
-  description = "A meaningful description"
+output "acr" {
+  description = "The Azure container registry created."
+  value       = azurerm_container_registry.this
 }
