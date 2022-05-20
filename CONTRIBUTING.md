@@ -1,3 +1,16 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Contributing](#contributing)
+  - [Pull Request Process](#pull-request-process)
+  - [Checklists for contributions](#checklists-for-contributions)
+  - [Commit Message Format](#commit-message-format)
+    - [Type](#type)
+    - [Footer](#footer)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via an [issue](https://github.com/padok-team/terraform-module-example/issues) before making a change.  **REPLACE THIS WITH THE URL OF YOUR REPO**
