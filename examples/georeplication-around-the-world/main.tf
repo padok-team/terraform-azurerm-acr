@@ -82,6 +82,23 @@ module "acr" {
   encryption_key_vault_id     = module.keyvault.id
   encryption_key_vault_key_id = azurerm_key_vault_key.example.id
 
+  georeplications = {
+    "eastus" = {
+      regional_endpoint_enabled = true,
+      zone_redundancy_enabled   = true,
+      tags = {
+        "continent" = "america"
+      }
+    },
+    "japaneast" = {
+      regional_endpoint_enabled = true,
+      zone_redundancy_enabled   = true,
+      tags = {
+        "continent" = "asia"
+      }
+    }
+  }
+
   depends_on = [
     module.keyvault
   ]

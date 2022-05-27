@@ -37,7 +37,7 @@ module "keyvault" {
 
   access_policy = {
     (data.azurerm_client_config.self.object_id) = {
-      key_permissions = ["Get", "List", "Create", "Delete"]
+      key_permissions = ["Get", "List", "Create", "Delete", "Update"]
     }
   }
 
@@ -78,6 +78,7 @@ module "acr" {
   location            = azurerm_resource_group.example.location
 
   public_network_access_enabled = true
+  ip_addresses                  = [local.ip]
 
   encryption_key_vault_id     = module.keyvault.id
   encryption_key_vault_key_id = azurerm_key_vault_key.example.id

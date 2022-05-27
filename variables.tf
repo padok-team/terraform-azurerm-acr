@@ -62,9 +62,9 @@ variable "encryption_key_vault_key_id" {
 
 variable "georeplications" {
   type = map(object({
-    regional_endpoint_enabled = optional(bool)
-    zone_redundancy_enabled   = optional(bool)
-    tags                      = optional(map(string))
+    regional_endpoint_enabled = bool
+    zone_redundancy_enabled   = bool
+    tags                      = map(string)
   }))
   default = {}
 }
