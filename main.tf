@@ -44,10 +44,10 @@ resource "azurerm_container_registry" "this" {
   dynamic "georeplications" {
     for_each = var.georeplications
     content {
-      location                  = each.key
-      regional_endpoint_enabled = each.value.regional_endpoint_enabled
-      zone_redundancy_enabled   = each.value.zone_redundancy_enabled
-      tags                      = each.value.tags
+      location                  = georeplications.key
+      regional_endpoint_enabled = georeplications.value.regional_endpoint_enabled
+      zone_redundancy_enabled   = georeplications.value.zone_redundancy_enabled
+      tags                      = georeplications.value.tags
     }
   }
 
