@@ -77,7 +77,6 @@ module "acr" {
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
 
-  admin_enabled                 = true
   public_network_access_enabled = true
 
   encryption_key_vault_id     = module.keyvault.id
@@ -86,14 +85,14 @@ module "acr" {
   georeplications = {
     "eastus" = {
       regional_endpoint_enabled = true,
-      zone_redundancy_enabled = true,
+      zone_redundancy_enabled   = true,
       tags = {
         "continent" = "america"
       }
     },
     "japaneast" = {
       regional_endpoint_enabled = true,
-      zone_redundancy_enabled = true,
+      zone_redundancy_enabled   = true,
       tags = {
         "continent" = "asia"
       }

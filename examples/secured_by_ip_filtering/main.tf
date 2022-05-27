@@ -77,10 +77,8 @@ module "acr" {
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
 
-  admin_enabled = true
-
   public_network_access_enabled = true
-  ip_addresses = [local.ip]
+  ip_addresses                  = [local.ip]
 
   encryption_key_vault_id     = module.keyvault.id
   encryption_key_vault_key_id = azurerm_key_vault_key.example.id
