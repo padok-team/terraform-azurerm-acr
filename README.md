@@ -40,6 +40,8 @@ module "acr" {
 ## Examples
 
 - [Simple example of use case](examples/basic/main.tf)
+- [With georeplication around the world](examples/georeplication-around-the-world/main.tf)
+- [Secured with ip whitelisting](examples/secured_by_ip_filtering/main.tf)
 
 <!-- BEGIN_TF_DOCS -->
 ## Modules
@@ -59,7 +61,7 @@ No modules.
 | <a name="input_encryption_identity_name"></a> [encryption\_identity\_name](#input\_encryption\_identity\_name) | The name of the identity to assign to the container registry. | `string` | `null` | no |
 | <a name="input_encryption_identity_resource_group_name"></a> [encryption\_identity\_resource\_group\_name](#input\_encryption\_identity\_resource\_group\_name) | The resource group of the identity to assign to the container registry. | `string` | `null` | no |
 | <a name="input_encryption_tenant_id"></a> [encryption\_tenant\_id](#input\_encryption\_tenant\_id) | The tenant id of the identity used to access KeyVault. | `string` | `null` | no |
-| <a name="input_georeplications"></a> [georeplications](#input\_georeplications) | n/a | <pre>map(object({<br>    regional_endpoint_enabled = optional(bool)<br>    zone_redundancy_enabled   = optional(bool)<br>    tags                      = optional(map(string))<br>  }))</pre> | `{}` | no |
+| <a name="input_georeplications"></a> [georeplications](#input\_georeplications) | n/a | <pre>map(object({<br>    regional_endpoint_enabled = bool<br>    zone_redundancy_enabled   = bool<br>    tags                      = map(string)<br>  }))</pre> | `{}` | no |
 | <a name="input_identity_ids"></a> [identity\_ids](#input\_identity\_ids) | The list of identities to assign to the container registry. | `list(string)` | `[]` | no |
 | <a name="input_ip_addresses"></a> [ip\_addresses](#input\_ip\_addresses) | The CIDR block from which requests will match the rule. | `list(string)` | `[]` | no |
 | <a name="input_network_default_action"></a> [network\_default\_action](#input\_network\_default\_action) | The behaviour for requests matching no rules. Either Allow or Deny. Defaults to Deny. | `string` | `"Deny"` | no |
@@ -75,3 +77,7 @@ No modules.
 |------|-------------|
 | <a name="output_acr"></a> [acr](#output\_acr) | The Azure container registry created. |
 <!-- END_TF_DOCS -->
+
+## License
+
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
