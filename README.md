@@ -75,3 +75,7 @@ No modules.
 |------|-------------|
 | <a name="output_acr"></a> [acr](#output\_acr) | The Azure container registry created. |
 <!-- END_TF_DOCS -->
+
+## License
+
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
