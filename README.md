@@ -25,7 +25,7 @@ Terraform module which creates **Container Registry** resources on **Azure**. Th
 
 ```hcl
 module "acr" {
-  source = "https://github.com/padok-team/terraform-azurerm-acr?ref=v0.0.1"
+  source = "https://github.com/padok-team/terraform-azurerm-acr?ref=v0.1.0"
 
   name                = "test-acr"
   resource_group_name = "test-acr"
