@@ -66,7 +66,8 @@ variable "georeplications" {
     zone_redundancy_enabled   = bool
     tags                      = map(string)
   }))
-  default = {}
+  description = "A georeplications block as documented below."
+  default     = {}
 }
 
 variable "encryption_identity_name" {
@@ -103,4 +104,3 @@ variable "retention_duration" {
   default     = "90"
   description = "The number of days to retain the logs. Defaults to 30."
 }
-

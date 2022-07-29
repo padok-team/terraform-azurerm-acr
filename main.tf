@@ -57,6 +57,8 @@ resource "azurerm_container_registry" "this" {
     key_vault_key_id   = var.encryption_key_vault_key_id
     identity_client_id = var.encryption_identity_name != null ? data.azurerm_user_assigned_identity.this[0].client_id : azurerm_user_assigned_identity.this[0].client_id
   }
+
+  tags = var.tags
 }
 
 data "azurerm_user_assigned_identity" "this" {
