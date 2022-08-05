@@ -1,0 +1,17 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: terraform-azurerm-acr
+  description: Terraform module which creates Container Registry resources on Azure
+  tags:
+    - "terraform"
+    - "azure"
+  annotations:
+    github.com/project-slug: padok-team/terraform-azurerm-acr
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: module
+  system: terraform
+  owner: library-azure
+  lifecycle: ready-to-use
