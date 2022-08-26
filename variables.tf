@@ -70,22 +70,19 @@ variable "georeplications" {
   default     = {}
 }
 
-variable "encryption_identity_name" {
-  type        = string
+variable "encryption_identity" {
+  type = object({
+    id        = string
+    client_id = string
+  })
   default     = null
-  description = "The name of the identity to assign to the container registry."
+  description = "The identity to assign to the container registry."
 }
 
 variable "encryption_tenant_id" {
   type        = string
   default     = null
   description = "The tenant id of the identity used to access KeyVault."
-}
-
-variable "encryption_identity_resource_group_name" {
-  type        = string
-  default     = null
-  description = "The resource group of the identity to assign to the container registry."
 }
 
 variable "encryption_key_vault_id" {
