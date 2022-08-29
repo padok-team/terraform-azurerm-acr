@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/padok-team/terraform-azurerm-acr/compare/v0.2.0...v0.3.0) (2022-08-29)
+
+
+### Features
+
+* remove data source for encryption identity from module ([22f86e4](https://github.com/padok-team/terraform-azurerm-acr/commit/22f86e4b8d726ea1d726dc57af82d5a72e4195d8))
+
 ## [0.2.0](https://github.com/padok-team/terraform-azurerm-acr/compare/v0.1.0...v0.2.0) (2022-07-29)
 
 
