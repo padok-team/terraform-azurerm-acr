@@ -63,6 +63,7 @@ No modules.
 | <a name="input_georeplications"></a> [georeplications](#input\_georeplications) | A georeplications block as documented below. | <pre>map(object({<br>    regional_endpoint_enabled = bool<br>    zone_redundancy_enabled   = bool<br>    tags                      = map(string)<br>  }))</pre> | `{}` | no |
 | <a name="input_identity_ids"></a> [identity\_ids](#input\_identity\_ids) | The list of identities to assign to the container registry. | `list(string)` | `[]` | no |
 | <a name="input_ip_addresses"></a> [ip\_addresses](#input\_ip\_addresses) | The CIDR block from which requests will match the rule. | `list(string)` | `[]` | no |
+| <a name="input_keyvault_iam_authorization"></a> [keyvault\_iam\_authorization](#input\_keyvault\_iam\_authorization) | Enable iam authorization to access keyvault resources. | `bool` | `true` | no |
 | <a name="input_network_default_action"></a> [network\_default\_action](#input\_network\_default\_action) | The behaviour for requests matching no rules. Either Allow or Deny. Defaults to Deny. | `string` | `"Deny"` | no |
 | <a name="input_public_network_access_enabled"></a> [public\_network\_access\_enabled](#input\_public\_network\_access\_enabled) | Whether public network access is allowed for the container registry. Defaults to false. | `bool` | `false` | no |
 | <a name="input_retention_duration"></a> [retention\_duration](#input\_retention\_duration) | The number of days to retain the logs. Defaults to 30. | `string` | `"90"` | no |

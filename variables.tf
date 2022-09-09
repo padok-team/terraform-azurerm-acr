@@ -55,11 +55,6 @@ variable "tags" {
   default     = {}
 }
 
-variable "encryption_key_vault_key_id" {
-  type        = string
-  description = "The key vault key identifier for the storage account."
-}
-
 variable "georeplications" {
   type = map(object({
     regional_endpoint_enabled = bool
@@ -85,9 +80,26 @@ variable "encryption_tenant_id" {
   description = "The tenant id of the identity used to access KeyVault."
 }
 
+variable "encryption_identity_resource_group_name" {
+  type        = string
+  default     = null
+  description = "The resource group of the identity to assign to the container registry."
+}
+
+variable "encryption_key_vault_key_id" {
+  type        = string
+  description = "The key vault key identifier for the storage account."
+}
+
 variable "encryption_key_vault_id" {
   type        = string
   description = "The key vault id of the key used to encrypt container registry."
+}
+
+variable "keyvault_iam_authorization" {
+  type        = bool
+  default     = true
+  description = "Enable iam authorization to access keyvault resources."
 }
 
 variable "identity_ids" {
