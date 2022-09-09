@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/padok-team/terraform-azurerm-acr/compare/v0.3.0...v0.4.0) (2022-09-09)
+
+
+### Features
+
+* **mni:** add IAM Authorization option for managed identity ([51ffd0d](https://github.com/padok-team/terraform-azurerm-acr/commit/51ffd0d73ee113b6a01721f814a0d23c7f017e38))
+
 ## [0.3.0](https://github.com/padok-team/terraform-azurerm-acr/compare/v0.2.0...v0.3.0) (2022-08-29)
 
 
