@@ -70,7 +70,7 @@ resource "azurerm_user_assigned_identity" "this" {
 }
 
 resource "azurerm_key_vault_access_policy" "this" {
-  count = var.encryption_identity != null ? 0 : 1
+  count = (var.encryption_identity != null && var.keyvault_iam_authorization == true) ? 0 : 1
 
   key_vault_id = var.encryption_key_vault_id
   tenant_id    = coalesce(var.encryption_tenant_id, data.azurerm_client_config.self.tenant_id)
@@ -79,4 +79,11 @@ resource "azurerm_key_vault_access_policy" "this" {
   key_permissions = [
     "Get", "WrapKey", "UnwrapKey"
   ]
+}
+
+resource "azurerm_role_assignment" "this" {
+  count                = (var.encryption_identity != null && var.keyvault_iam_authorization == false) ? 0 : 1
+  scope                = var.encryption_key_vault_id
+  role_definition_name = "Key Vault Crypto Service Encryption User"
+  principal_id         = azurerm_user_assigned_identity.this[0].principal_id
 }
