@@ -1,23 +1,4 @@
-terraform {
-  required_version = "~> 1.0.0"
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "2.82.0"
-    }
-  }
-}
-
-provider "azurerm" {
-  skip_provider_registration = true
-  features {}
-}
-
-locals {
-  ip = "" # Fill here with your IP address.
-}
-
-data "azurerm_client_config" "self" {}
+data "azurerm_client_config" "this" {}
 
 resource "random_pet" "keyvault" {}
 resource "random_pet" "acr" {
@@ -29,31 +10,31 @@ resource "azurerm_resource_group" "example" {
   location = "francecentral"
 }
 
-module "keyvault" {
-  source              = "git@github.com:padok-team/terraform-azurerm-keyvault.git?ref=v0.1.1"
-  name                = random_pet.keyvault.id
-  resource_group_name = azurerm_resource_group.example.name
-  sku_name            = "standard"
+module "key_vault" {
+  source = "git@github.com:padok-team/terraform-azurerm-keyvault.git?ref=v0.2.0"
 
-  access_policy = {
-    (data.azurerm_client_config.self.object_id) = {
-      key_permissions = ["Get", "List", "Create", "Delete"]
-    }
-  }
+  name           = random_pet.keyvault.id # KeyVault names are globally unique
+  resource_group = azurerm_resource_group.example
+  tenant_id      = data.azurerm_client_config.this.tenant_id
+  sku_name       = "standard"
 
-  network_acls = {
-    ip_rules                   = [local.ip]
-    virtual_network_subnet_ids = []
-  }
+  enable_network_acl        = false
+  enable_rbac_authorization = true
 
   depends_on = [
     azurerm_resource_group.example
   ]
 }
 
+resource "azurerm_role_assignment" "keyvault_administrator" {
+  scope                = module.key_vault.this.id
+  role_definition_name = "Key Vault Administrator"
+  principal_id         = "29ecfec2-8b7b-4a66-91ba-757694c84bf6" # TODO: set your principal ID here
+}
+
 resource "azurerm_key_vault_key" "example" {
   name         = "acr-key"
-  key_vault_id = module.keyvault.id
+  key_vault_id = module.key_vault.this.id
   key_type     = "RSA"
   key_size     = 2048
 
@@ -67,7 +48,8 @@ resource "azurerm_key_vault_key" "example" {
   ]
 
   depends_on = [
-    module.keyvault.example
+    module.key_vault,
+    azurerm_role_assignment.keyvault_administrator
   ]
 }
 
@@ -79,7 +61,7 @@ module "acr" {
 
   public_network_access_enabled = true
 
-  encryption_key_vault_id     = module.keyvault.id
+  encryption_key_vault_id     = module.key_vault.this.id
   encryption_key_vault_key_id = azurerm_key_vault_key.example.id
 
   georeplications = {
@@ -100,6 +82,6 @@ module "acr" {
   }
 
   depends_on = [
-    module.keyvault
+    module.key_vault,
   ]
 }
