@@ -59,6 +59,11 @@ resource "azurerm_container_registry" "this" {
   }
 
   tags = var.tags
+
+  depends_on = [
+    azurerm_role_assignment.this,
+    azurerm_key_vault_access_policy.this
+  ]
 }
 
 resource "azurerm_user_assigned_identity" "this" {
@@ -79,6 +84,10 @@ resource "azurerm_key_vault_access_policy" "this" {
   key_permissions = [
     "Get", "WrapKey", "UnwrapKey"
   ]
+
+  depends_on = [
+    azurerm_user_assigned_identity.this
+  ]
 }
 
 resource "azurerm_role_assignment" "this" {
@@ -86,4 +95,8 @@ resource "azurerm_role_assignment" "this" {
   scope                = var.encryption_key_vault_id
   role_definition_name = "Key Vault Crypto Service Encryption User"
   principal_id         = azurerm_user_assigned_identity.this[0].principal_id
+
+  depends_on = [
+    azurerm_user_assigned_identity.this
+  ]
 }
