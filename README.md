@@ -53,7 +53,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_encryption_key_vault_id"></a> [encryption\_key\_vault\_id](#input\_encryption\_key\_vault\_id) | The key vault id of the key used to encrypt container registry. | `string` | n/a | yes |
-| <a name="input_encryption_key_vault_key_id"></a> [encryption\_key\_vault\_key\_id](#input\_encryption\_key\_vault\_key\_id) | The key vault key identifier for the storage account. | `string` | n/a | yes |
+| <a name="input_encryption_key_vault_key_id"></a> [encryption\_key\_vault\_key\_id](#input\_encryption\_key\_vault\_key\_id) | The ID of the encryption Key in the key vault. | `string` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | Specifies the supported Azure location where the resource exists. Changing this forces a new resource to be created. | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | ACR Name | `string` | n/a | yes |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name of the resource group in which to create the Container Registry. Changing this forces a new resource to be created. | `string` | n/a | yes |

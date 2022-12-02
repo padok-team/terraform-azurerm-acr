@@ -80,15 +80,9 @@ variable "encryption_tenant_id" {
   description = "The tenant id of the identity used to access KeyVault."
 }
 
-variable "encryption_identity_resource_group_name" {
-  type        = string
-  default     = null
-  description = "The resource group of the identity to assign to the container registry."
-}
-
 variable "encryption_key_vault_key_id" {
   type        = string
-  description = "The key vault key identifier for the storage account."
+  description = "The ID of the encryption Key in the key vault."
 }
 
 variable "encryption_key_vault_id" {
