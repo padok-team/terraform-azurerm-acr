@@ -29,7 +29,7 @@ module "key_vault" {
 resource "azurerm_role_assignment" "keyvault_administrator" {
   scope                = module.key_vault.this.id
   role_definition_name = "Key Vault Administrator"
-  principal_id         = "UPDATE-ME !!!" # TODO: set your principal ID here
+  principal_id         = "UPDATE ME !!" # TODO: set your principal ID here
 }
 
 resource "azurerm_key_vault_key" "example" {
