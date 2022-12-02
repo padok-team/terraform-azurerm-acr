@@ -1,20 +1,5 @@
-terraform {
-  required_version = "~> 1.0.0"
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "2.82.0"
-    }
-  }
-}
-
-provider "azurerm" {
-  skip_provider_registration = true
-  features {}
-}
-
 locals {
-  ip = "" # Fill here with your IP address.
+  ip = "31.32.227.74" # Fill here with your IP address.
 }
 
 data "azurerm_client_config" "self" {}
@@ -30,16 +15,15 @@ resource "azurerm_resource_group" "example" {
 }
 
 module "keyvault" {
-  source              = "git@github.com:padok-team/terraform-azurerm-keyvault.git?ref=v0.1.1"
-  name                = random_pet.keyvault.id
-  resource_group_name = azurerm_resource_group.example.name
-  sku_name            = "standard"
+  source = "git@github.com:padok-team/terraform-azurerm-keyvault.git?ref=v0.2.0"
 
-  access_policy = {
-    (data.azurerm_client_config.self.object_id) = {
-      key_permissions = ["Get", "List", "Create", "Delete", "Update"]
-    }
-  }
+  name           = random_pet.keyvault.id # KeyVault names are globally unique
+  resource_group = azurerm_resource_group.example
+  tenant_id      = data.azurerm_client_config.self.tenant_id
+  sku_name       = "standard"
+
+  enable_network_acl        = true
+  enable_rbac_authorization = true
 
   network_acls = {
     ip_rules                   = [local.ip]
@@ -49,6 +33,12 @@ module "keyvault" {
   depends_on = [
     azurerm_resource_group.example
   ]
+}
+
+resource "azurerm_role_assignment" "keyvault_administrator" {
+  scope                = module.keyvault.this.id
+  role_definition_name = "Key Vault Administrator"
+  principal_id         = "UPDATE ME !!" # TODO: set your principal ID here
 }
 
 resource "azurerm_key_vault_key" "example" {
@@ -67,7 +57,8 @@ resource "azurerm_key_vault_key" "example" {
   ]
 
   depends_on = [
-    module.keyvault.example
+    module.keyvault.example,
+    azurerm_role_assignment.keyvault_administrator
   ]
 }
 
