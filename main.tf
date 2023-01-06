@@ -2,8 +2,8 @@ data "azurerm_client_config" "self" {}
 
 resource "azurerm_container_registry" "this" {
   name                    = var.name
-  resource_group_name     = var.resource_group_name
-  location                = var.location
+  resource_group_name     = var.resource_group.name
+  location                = var.resource_group.location
   zone_redundancy_enabled = true
   sku                     = var.sku
 
@@ -69,8 +69,8 @@ resource "azurerm_container_registry" "this" {
 resource "azurerm_user_assigned_identity" "this" {
   count = var.encryption_identity != null ? 0 : 1
 
-  resource_group_name = var.resource_group_name
-  location            = var.location
+  resource_group_name = var.resource_group.name
+  location            = var.resource_group.location
   name                = "acr-${var.name}-identity"
 }
 
