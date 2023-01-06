@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.0](https://github.com/padok-team/terraform-azurerm-acr/compare/v0.4.0...v0.5.0) (2022-12-02)
+
+
+### Features
+
+* **rbac:** add depends-on instruction for KeyVault role assignment ([1a3aa1a](https://github.com/padok-team/terraform-azurerm-acr/commit/1a3aa1a3bc69f4a8a05dcbb9d197ece9031e4842))
+
 ## [0.4.0](https://github.com/padok-team/terraform-azurerm-acr/compare/v0.3.0...v0.4.0) (2022-09-09)
 
 
