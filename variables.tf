@@ -3,14 +3,12 @@ variable "name" {
   description = "ACR Name"
 }
 
-variable "resource_group_name" {
-  type        = string
-  description = "The name of the resource group in which to create the Container Registry. Changing this forces a new resource to be created."
-}
-
-variable "location" {
-  type        = string
-  description = "Specifies the supported Azure location where the resource exists. Changing this forces a new resource to be created."
+variable "resource_group" {
+  type = object({
+    name     = string
+    location = string
+  })
+  description = "Resource group configuration."
 }
 
 variable "public_network_access_enabled" {
