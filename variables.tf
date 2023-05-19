@@ -105,3 +105,17 @@ variable "retention_duration" {
   default     = "90"
   description = "The number of days to retain the logs. Defaults to 30."
 }
+
+variable "private_endpoint" {
+  description = "The private endpoint configuration."
+  type = object({
+    enable              = bool,
+    subnet_id           = string
+    private_dns_zone_id = string,
+  })
+  default = {
+    enable              = false
+    subnet_id           = null
+    private_dns_zone_id = null
+  }
+}
