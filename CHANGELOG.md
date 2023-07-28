@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.7.0](https://github.com/padok-team/terraform-azurerm-acr/compare/v0.6.0...v0.7.0) (2023-07-28)
+
+
+### Features
+
+* **config:** add private endpoint ([634a8a5](https://github.com/padok-team/terraform-azurerm-acr/commit/634a8a543899dcb56cb62e9ae30b1917fa50e9aa))
+
 ## [0.6.0](https://github.com/padok-team/terraform-azurerm-acr/compare/v0.5.0...v0.6.0) (2023-01-13)
 
 
