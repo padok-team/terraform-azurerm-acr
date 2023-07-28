@@ -11,7 +11,7 @@ resource "azurerm_resource_group" "this" {
 }
 
 module "key_vault" {
-  source = "git@github.com:padok-team/terraform-azurerm-keyvault.git?ref=v0.4.0"
+  source = "git@github.com:padok-team/terraform-azurerm-keyvault.git?ref=v0.5.0"
 
   name           = random_pet.keyvault.id # KeyVault names are globally unique
   resource_group = azurerm_resource_group.this

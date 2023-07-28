@@ -1,5 +1,5 @@
 terraform {
-  required_version = "~>1"
+  required_version = ">= 1.3.0"
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
@@ -30,7 +30,7 @@ resource "azurerm_resource_group" "this" {
 }
 
 module "keyvault" {
-  source         = "git@github.com:padok-team/terraform-azurerm-keyvault.git?ref=v0.4.0"
+  source         = "git@github.com:padok-team/terraform-azurerm-keyvault.git?ref=v0.5.0"
   name           = random_pet.keyvault.id
   resource_group = azurerm_resource_group.this
   sku_name       = "standard"
@@ -76,7 +76,7 @@ module "acr" {
   source         = "../.."
   name           = random_pet.acr.id
   resource_group = azurerm_resource_group.this
-  
+
   public_network_access_enabled = true
   ip_addresses                  = [local.ip]
 
