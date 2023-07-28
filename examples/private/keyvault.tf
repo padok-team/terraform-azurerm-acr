@@ -1,7 +1,7 @@
 data "azurerm_client_config" "this" {}
 
 module "key_vault" {
-  source = "git@github.com:padok-team/terraform-azurerm-keyvault.git?ref=v0.4.0"
+  source = "git@github.com:padok-team/terraform-azurerm-keyvault.git?ref=v0.5.0"
 
   name           = random_pet.this.id # KeyVault names are globally unique
   resource_group = azurerm_resource_group.this
@@ -19,7 +19,7 @@ module "key_vault" {
 resource "azurerm_role_assignment" "keyvault_administrator" {
   scope                = module.key_vault.this.id
   role_definition_name = "Key Vault Administrator"
-  principal_id         = "UPDATE-ME !!!" # TODO: set your principal ID here
+  principal_id         = "d261250d-7321-4a33-aeeb-e08ee9ab58fe" # TODO: set your principal ID here
 }
 
 resource "azurerm_key_vault_key" "this" {
