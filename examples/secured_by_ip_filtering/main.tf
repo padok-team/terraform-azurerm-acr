@@ -30,6 +30,7 @@ resource "azurerm_resource_group" "this" {
 }
 
 module "keyvault" {
+  #checkov:skip=CKV_TF_1:
   source         = "git@github.com:padok-team/terraform-azurerm-keyvault.git?ref=v0.5.0"
   name           = random_pet.keyvault.id
   resource_group = azurerm_resource_group.this

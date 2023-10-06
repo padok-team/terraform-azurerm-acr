@@ -119,3 +119,9 @@ variable "private_endpoint" {
     private_dns_zone_id = null
   }
 }
+
+variable "trust_policy_enabled" {
+  description = "Enable trust policy for the container registry."
+  type        = bool
+  default     = false
+}
