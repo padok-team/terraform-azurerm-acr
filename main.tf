@@ -14,6 +14,9 @@ resource "azurerm_container_registry" "this" {
   trust_policy {
     enabled = var.trust_policy_enabled
   }
+
+  quarantine_policy_enabled = var.quarantine_policy_enabled
+
   retention_policy {
     enabled = true
     days    = var.retention_duration

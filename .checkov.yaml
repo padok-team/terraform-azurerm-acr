@@ -1,0 +1,8 @@
+skip-check:
+  - CKV_TF_1 # Terraform import module with commit hash
+  - CKV_AZURE_40 # "Ensure all keys have an expiration date"
+  - CKV_AZURE_112 # "Ensure that key vault key is backed by HSM"
+  - CKV_AZURE_164 # "Ensures that ACR uses signed/trusted images"
+  - CKV_AZURE_166 # "Ensure container image quarantine, scan, and mark images verified" - Can be enabled as input parameter
+  - CKV_AZURE_139 # "Ensure ACR set to disable public networking" - Can be enabled as input parameter
+  - CKV2_AZURE_31 # "Ensure VNET subnet is configured with a Network Security Group (NSG)" -> ??

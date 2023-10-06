@@ -121,7 +121,13 @@ variable "private_endpoint" {
 }
 
 variable "trust_policy_enabled" {
-  description = "Enable trust policy for the container registry."
+  description = "Enable trust policy for the container registry. Defaults to false."
+  type        = bool
+  default     = false
+}
+
+variable "quarantine_policy_enabled" {
+  description = "Enable quarantine policy for the container registry. Defaults to false."
   type        = bool
   default     = false
 }
