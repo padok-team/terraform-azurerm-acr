@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.0](https://github.com/padok-team/terraform-azurerm-acr/compare/v0.7.0...v0.8.0) (2023-10-20)
+
+
+### Features
+
+* **acr:** Add variable for trust policy ([b11325c](https://github.com/padok-team/terraform-azurerm-acr/commit/b11325c20fc5c1933dcf84d67af21af7d3c5b264))
+* **checkov:** enable ([9cc7a39](https://github.com/padok-team/terraform-azurerm-acr/commit/9cc7a392fea6ab58acb1e11bc2bf7c3cc217a426))
+* **checkov:** Skip checks ([22c1d03](https://github.com/padok-team/terraform-azurerm-acr/commit/22c1d031c5a84375ab3f14e3cd78e00015ac5e15))
+
 ## [0.7.0](https://github.com/padok-team/terraform-azurerm-acr/compare/v0.6.0...v0.7.0) (2023-07-28)
 
 
