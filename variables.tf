@@ -106,18 +106,14 @@ variable "retention_duration" {
   description = "The number of days to retain the logs. Defaults to 30."
 }
 
-variable "private_endpoint" {
-  description = "The private endpoint configuration."
-  type = object({
-    enable              = bool,
+variable "private_endpoints" {
+  description = "The map of private endpoints configuration."
+  type = map(object({
+    name                = string
     subnet_id           = string
-    private_dns_zone_id = string,
-  })
-  default = {
-    enable              = false
-    subnet_id           = null
-    private_dns_zone_id = null
-  }
+    private_dns_zone_id = string
+  }))
+  default = {}
 }
 
 variable "trust_policy_enabled" {
