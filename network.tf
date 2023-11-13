@@ -1,14 +1,14 @@
-resource "azurerm_private_endpoint" "this" {
-  count = var.private_endpoint.enable ? 1 : 0
+resource "azurerm_private_endpoint" "these" {
+  for_each = var.private_endpoints
 
-  name                = var.name
+  name                = each.value.name
   resource_group_name = var.resource_group.name
   location            = var.resource_group.location
-  subnet_id           = var.private_endpoint.subnet_id
+  subnet_id           = each.value.subnet_id
 
   private_dns_zone_group {
     name                 = "default"
-    private_dns_zone_ids = [var.private_endpoint.private_dns_zone_id]
+    private_dns_zone_ids = [each.value.private_dns_zone_id]
   }
 
   # Reference: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview#private-link-resource
